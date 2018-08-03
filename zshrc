@@ -1,9 +1,13 @@
 export ZSH=/Users/andreashhp/.oh-my-zsh
+export TERM="xterm-256color"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="avit"
+
+# Hide machine name in theme (for agnoster theme)
+DEFAULT_USER="$(whoami)"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -24,6 +28,7 @@ export LANG=en_US.UTF-8
 # For a full list of active aliases, run `alias`.
 #
 alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 
 export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/junit.jar
 export PATH=$PATH:User/andreashhp/miniconda2/bin:/usr/local/bin:/usr/local/mysql/bin:/Library/TeX/texbin/

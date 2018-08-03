@@ -15,6 +15,7 @@ Plugin 'Valloric/YouCompleteMe'
 
 " Nice, light-weight statusline
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " Pale Night colorscheme
 Plugin 'drewtempelmeyer/palenight.vim'
@@ -58,6 +59,18 @@ Plugin 'lervag/vimtex'
 " Window swapping like crazy
 Plugin 'wesQ3/vim-windowswap'
 
+" All the colorschemes of the world
+Plugin 'flazz/vim-colorschemes'
+
+" Detect virtualenvs
+Plugin 'jmcantrell/vim-virtualenv'
+
+" Add support for tmux line (or something)
+Plugin 'edkolev/tmuxline.vim'
+
+" Add git support
+Plugin 'tpope/vim-fugitive'
+
 call vundle#end()            
 filetype plugin indent on    
 
@@ -72,6 +85,10 @@ syntax enable
 " Show current line number but set all other relative to this
 set relativenumber
 set number
+
+" And also for help pages
+autocmd FileType help setlocal number
+autocmd FileType help setlocal relativenumber
 
 " Highlight current line
 set cursorline
@@ -135,7 +152,8 @@ set showtabline=2
 
 " Colorscheme
 set background=dark
-colorscheme palenight
+let g:solarized_termcolors=256
+colorscheme solarized
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -162,6 +180,7 @@ set smartcase
 
 " Higligt search results
 set hlsearch
+set nohlsearch
 
 " Makes search act like search in modern browsers
 set incsearch 
@@ -358,8 +377,8 @@ let g:fsharp_fsi_show_auto_open=1
 """"""""""""""""""""""""""""""""""""""""
 
 " Move to next and previous error with Alt-d/a
-nmap <silent> ∂ <Plug>(ale_next_wrap)
-nmap <silent> ª <Plug>(ale_previous_wrap)
+nmap <silent> ˙ <Plug>(ale_next_wrap)
+nmap <silent> ¬ <Plug>(ale_previous_wrap)
 
 """"""""""""""""""""""""""""""""""""""""
 " Plugin: YouCompleteMe
@@ -369,5 +388,27 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 
+""""""""""""""""""""""""""""""""""""""""
+" Plugin: airline
+""""""""""""""""""""""""""""""""""""""""
+
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+
+let g:airline#extensions#default#section_truncate_width = {
+      \ 'x': 100,
+      \ 'y': 100,
+      \ 'z': 50,
+      \ 'warning': 80,
+      \ 'error': 80,
+      \ }
 
 
