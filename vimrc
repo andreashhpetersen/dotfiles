@@ -20,8 +20,11 @@ Plugin 'vim-airline/vim-airline-themes'
 " Pale Night colorscheme
 Plugin 'drewtempelmeyer/palenight.vim'
 
-" Best commentary plugin
+" Simple commentary plugin
 Plugin 'https://github.com/tpope/vim-commentary'
+
+" Awesome docstring plugin
+Plugin 'heavenshell/vim-pydocstring'
 
 " Vertical indent lines. Visual stuff, looks good
 Plugin 'Yggdroot/indentLine'
@@ -32,10 +35,7 @@ Plugin 'https://github.com/scrooloose/nerdtree'
 " Tagbar, to be explored!
 Plugin 'https://github.com/majutsushi/tagbar'
 
-" Syntastic.. Im gonna go IDEvil on your ass!
-" Plugin 'https://github.com/vim-syntastic/syntastic'
-
-" ALE...?
+" ALE is the new Syntastic, yo!
 Plugin 'w0rp/ale'
 
 " PEP8 support
@@ -324,6 +324,13 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 
 nnoremap <C-t> :TagbarToggle<CR>
 
+
+""""""""""""""""""""""""""""""""""""""""
+" => Plugin: vim-pydocstring
+""""""""""""""""""""""""""""""""""""""""
+
+" Avoid keymapping clashing with tmux navigation
+nmap <silent> <C--> <Plug>(pydocstring)
 
 """"""""""""""""""""""""""""""""""""""""
 " => Plugin: vim-fsharp
