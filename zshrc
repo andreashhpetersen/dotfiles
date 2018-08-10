@@ -1,4 +1,5 @@
-export ZSH=/Users/andreashhp/.oh-my-zsh
+platform=$(uname)
+export ZSH=~/.oh-my-zsh
 export TERM="xterm-256color"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -27,15 +28,30 @@ export LANG=en_US.UTF-8
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+
 alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
-alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 
 export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/junit.jar
-export PATH=$PATH:User/andreashhp/miniconda2/bin:/usr/local/bin:/usr/local/mysql/bin:/Library/TeX/texbin/
+if [[ $platform == 'Linux' ]]; then
+    # Exports
+    export PATH=$PATH:/usr/local/bin
+
+    # Aliases
+    # Modify keyboard backlight
+    alias kbo="sudo keyboard_backlight.sh off"
+    alias kbu="sudo keyboard_backlight.sh up"
+    alias kbd="sudo keyboard_backlight.sh down"
+elif [[ $platform == 'Darwin' ]]; then
+    # Exports
+    export PATH=$PATH:User/andreashhp/miniconda2/bin:/usr/local/bin:/usr/local/mysql/bin:/Library/TeX/texbin/
+
+    # Aliases
+    alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+fi
 
 # needed for virtualenvwrapper
 export WORKON_HOME=~/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
 
 # Make use of nice bd command
@@ -44,5 +60,8 @@ alias bd=". bd -si"
 
 # Speed up compilation time of C/C++ source code
 export HOMEBREW_MAKE_JOBS=4
+
+# Other custom aliases
+
 
 
