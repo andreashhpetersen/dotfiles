@@ -29,6 +29,7 @@ export LANG=en_US.UTF-8
 #
 alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+alias tn="tmux attach || tmux new"
 
 export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/junit.jar
 export PATH=$PATH:User/andreashhp/miniconda2/bin:/usr/local/bin:/usr/local/mysql/bin:/Library/TeX/texbin/
@@ -44,5 +45,3 @@ alias bd=". bd -si"
 
 # Speed up compilation time of C/C++ source code
 export HOMEBREW_MAKE_JOBS=4
-
-
