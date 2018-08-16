@@ -2,6 +2,9 @@ platform=$(uname)
 export ZSH=~/.oh-my-zsh
 export TERM="xterm-256color"
 
+# For tmuxp
+export DISABLE_AUTO_TITLE='true'
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes

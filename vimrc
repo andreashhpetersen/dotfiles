@@ -71,6 +71,9 @@ Plugin 'edkolev/tmuxline.vim'
 " Add git support
 Plugin 'tpope/vim-fugitive'
 
+" Can Django BE any better??
+Plugin 'tweekmonster/django-plus.vim'
+
 call vundle#end()            
 filetype plugin indent on    
 
@@ -399,16 +402,25 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 " Plugin: airline
 """"""""""""""""""""""""""""""""""""""""
 
-
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+let g:airline_theme='base16'
 
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
+
+let g:airline_symbols.linenr = '|'
+let g:airline_symbols.maxlinenr = ' |'
+
+
+let g:airline#extensions#tabline#enabled    = 1
+let g:airline#extensions#tabline#left_sep   = ''
+let g:airline#extensions#tabline#right_sep  = ''
 
 let g:airline#extensions#default#section_truncate_width = {
       \ 'x': 100,
