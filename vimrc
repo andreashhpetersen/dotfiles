@@ -71,6 +71,9 @@ Plugin 'edkolev/tmuxline.vim'
 " Add git support
 Plugin 'tpope/vim-fugitive'
 
+" Distraction free mode
+Plugin 'junegunn/goyo.vim'
+
 " Can Django BE any better??
 Plugin 'tweekmonster/django-plus.vim'
 
@@ -363,26 +366,6 @@ let g:fsharp_fsi_show_auto_open=1
 
 
 """"""""""""""""""""""""""""""""""""""""
-" Plugin: Syntastic
-"""""""""""""""""""""""""""""""""""""""
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_auto_loc_list=1
-" let g:syntastic_check_on_open=1
-" let g:syntastic_check_on_wq=0
-
-" " Quiet some warnings
-" let g:syntastic_quiet_messages = { "regex": [
-"         \ '\mpossible unwanted space at "{"',
-"         \ '\mcommand terminated with space',
-"         \ '\myou should enclose the previous parenthesis with `{}',
-"         \ '\mperhaps you should insert a',
-"         \ ] }
-
-""""""""""""""""""""""""""""""""""""""""
 " Plugin: ALE
 """"""""""""""""""""""""""""""""""""""""
 
@@ -431,3 +414,20 @@ let g:airline#extensions#default#section_truncate_width = {
       \ }
 
 
+""""""""""""""""""""""""""""""""""""""""
+" Plugin: ALE
+""""""""""""""""""""""""""""""""""""""""
+
+function! ProseMode()
+  call goyo#execute(0, [])
+  set spell noci nosi noai nolist noshowmode noshowcmd
+  set complete+=s
+  set bg=light
+  if !has('gui_running')
+    let g:solarized_termcolors=256
+  endif
+  colors solarized
+endfunction
+
+command! ProseMode call ProseMode()
+nmap \p :ProseMode<CR>

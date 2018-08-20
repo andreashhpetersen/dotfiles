@@ -1,0 +1,6 @@
+[submodule "vim/bundle/vim-pydocstring"]
+	path = vim/bundle/vim-pydocstring
+	url = https://github.com/heavenshell/vim-pydocstring
+[submodule "vim/bundle/goyo.vim"]
+	path = vim/bundle/goyo.vim
+	url = https://github.com/junegunn/goyo.vim
