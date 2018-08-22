@@ -197,15 +197,20 @@ set incsearch
 """"""""""""""""""""""""""""""""""""""""
 
 " Alt + jk (‹∆) to move lines in file
-nnoremap ‹ :m .+1<CR>==
-nnoremap ∆ :m .-2<CR>==
+nnoremap ∆ :m .+1<CR>==
+nnoremap ˚ :m .-2<CR>==
 
-inoremap ‹ <Esc>:m .+1<CR>==gi
-inoremap ∆ <Esc>:m .-2<CR>==gi
+inoremap ∆ <Esc>:m .+1<CR>==gi
+inoremap ˚ <Esc>:m .-2<CR>==gi
 
-vnoremap ‹ :m '>+1<CR>gv=gv
-vnoremap ∆ :m '<-2<CR>gv=gv
+vnoremap ∆ :m '>+1<CR>gv=gv
+vnoremap ˚ :m '<-2<CR>gv=gv
 
+" Working with buffers
+nnoremap gl :ls<CR>
+nnoremap gn :bn<CR>
+nnoremap gp :bp<CR>
+nnoremap gd :bd<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -328,8 +333,12 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 " => Plugin: Tagbar
 """"""""""""""""""""""""""""""""""""""""
 
-nnoremap <C-t> :TagbarToggle<CR>
+" Open tagbar and let it have focus at the tag under the cursor
+nnoremap <C-t> :TagbarOpen fjc<CR>
 
+" Use global show line configurations
+let g:tagbar_show_linenumbers = -1
+let g:tagbar_autopreview = 1
 
 """"""""""""""""""""""""""""""""""""""""
 " => Plugin: vim-pydocstring
