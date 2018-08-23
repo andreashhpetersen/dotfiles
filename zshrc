@@ -22,7 +22,7 @@ DEFAULT_USER="$(whoami)"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode colored-man-pages pip3 brew z)
+plugins=(git vi-mode colored-man-pages pip3 tmux sudo django z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -55,12 +55,12 @@ elif [[ $platform == 'Darwin' ]]; then
     export PATH=$PATH:User/andreashhp/miniconda2/bin:/usr/local/bin:/usr/local/mysql/bin:/Library/TeX/texbin/
 
     # Aliases
-    alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+    # alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 fi
 
 # needed for virtualenvwrapper
 export WORKON_HOME=~/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)
 source /usr/local/bin/virtualenvwrapper.sh
 
 # Make use of nice bd command
