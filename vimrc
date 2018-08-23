@@ -157,6 +157,8 @@ set laststatus=2
 set showtabline=2
 
 " Colorscheme
+set t_Co=256
+
 set background=dark
 let g:solarized_termcolors=256
 colorscheme solarized

@@ -1,6 +1,11 @@
+
+echo "\nHigh five!!\n"
+
+
 platform=$(uname)
 export ZSH=~/.oh-my-zsh
 export TERM="xterm-256color"
+export VISUAL="vim"
 
 # For tmuxp
 export DISABLE_AUTO_TITLE='true'
