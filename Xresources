@@ -20,6 +20,7 @@ URxvt*cursorBlink:          true
 URxvt*background:           #232C31
 URxvt*foreground:           #C5C8C6
 URxvt*geometry:             89x47
+URxvt*internalBorder:       15
 
 ! Extensions
 URxvt*perl-ext-common:      font-size
