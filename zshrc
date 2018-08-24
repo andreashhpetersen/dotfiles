@@ -7,6 +7,8 @@ export ZSH=~/.oh-my-zsh
 export TERM="xterm-256color"
 export VISUAL="vim"
 
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
 # For tmuxp
 export DISABLE_AUTO_TITLE='true'
 
