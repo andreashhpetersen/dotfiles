@@ -158,10 +158,10 @@ set showtabline=2
 
 " Colorscheme
 set t_Co=256
+colorscheme palenight
 
-set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
+" Turn background off
+hi Normal ctermfg=252 ctermbg=NONE
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -442,3 +442,4 @@ endfunction
 
 command! ProseMode call ProseMode()
 nmap \p :ProseMode<CR>
+
