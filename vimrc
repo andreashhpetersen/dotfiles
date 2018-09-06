@@ -77,6 +77,10 @@ Plugin 'junegunn/goyo.vim'
 " Can Django BE any better??
 Plugin 'tweekmonster/django-plus.vim'
 
+" Markdown support
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
 call vundle#end()            
 filetype plugin indent on    
 
@@ -135,11 +139,8 @@ set splitright
 " Style and look
 """"""""""""""""""""""""""""""""""""""""
 
-" Add a bit extra margin to the left
-set foldcolumn=1
-
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 "Always show current position
 set ruler
@@ -167,11 +168,6 @@ hi Normal ctermfg=252 ctermbg=NONE
 """"""""""""""""""""""""""""""""""""""""
 " Colorscheme: Pale Night 
 """"""""""""""""""""""""""""""""""""""""
-
-" True Colors
-if (has("nvim"))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
 
 " The bless of italics
 let g:palenight_terminal_italics=1
@@ -353,27 +349,7 @@ nmap <silent> <C--> <Plug>(pydocstring)
 " => Plugin: vim-fsharp
 """"""""""""""""""""""""""""""""""""""""
 
-" Toggle syntax checking in F#
-function! ToggleFsharpSyntax()
-    let s = g:syntastic_fsharp_checkers
-    if s == ["syntax"]
-        let g:syntastic_fsharp_checkers=[""]
-        let g:fsharp_only_check_errors_on_write=1
-    else
-        let g:syntastic_fsharp_checkers=["syntax"]
-        let g:fsharp_only_check_errors_on_write=0
-    endif
-endfunction
-
-" Map ;s to the toggle syntax function
-nmap <silent> ;s :call ToggleFsharpSyntax()<CR>
-
-" Avoid too much lag (syntax check causes insufferable latency)
-" let g:fsharp_only_check_errors_on_write=1
-" let g:syntastic_fsharp_checkers=[""]
-
 let g:fsharp_fsi_show_auto_open=1
-
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -432,12 +408,8 @@ let g:airline#extensions#default#section_truncate_width = {
 function! ProseMode()
   call goyo#execute(0, [])
   set spell noci nosi noai nolist noshowmode noshowcmd
-  set complete+=s
+  set complete+=kspell
   set bg=light
-  if !has('gui_running')
-    let g:solarized_termcolors=256
-  endif
-  colors solarized
 endfunction
 
 command! ProseMode call ProseMode()
