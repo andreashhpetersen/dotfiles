@@ -52,10 +52,11 @@ if [[ $platform == 'Linux' ]]; then
     alias kbd="sudo keyboard_backlight.sh down"
 elif [[ $platform == 'Darwin' ]]; then
     # Exports
-    export PATH=$PATH:User/andreashhp/miniconda2/bin:/usr/local/bin:/usr/local/mysql/bin:/Library/TeX/texbin/
+    export PATH=/usr/local/bin:$PATH:User/andreashhp/miniconda2/bin:/usr/local/mysql/bin:/Library/TeX/texbin/
 
-    # Aliases
-    # alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+    # heroku autocomplete setup
+    HEROKU_AC_ZSH_SETUP_PATH=/Users/andreashhp/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+
 fi
 
 # needed for virtualenvwrapper
@@ -69,3 +70,4 @@ alias bd=". bd -si"
 
 # Speed up compilation time of C/C++ source code
 export HOMEBREW_MAKE_JOBS=4
+
