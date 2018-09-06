@@ -41,11 +41,13 @@ export LANG=en_US.UTF-8
 
 alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 alias tn="tmux attach || tmux new"
+alias try="tmux resize-pane -y"
+alias trx="tmux resize-pane -x"
 
 export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/junit.jar
 if [[ $platform == 'Linux' ]]; then
     # Exports
-    export PATH=$PATH:/usr/local/bin
+    export PATH=/usr/local/bin:$HOME/bin:$PATH
 
     # Aliases
     # Modify keyboard backlight
@@ -63,11 +65,7 @@ fi
 # needed for virtualenvwrapper
 export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=$(which python3)
-source /usr/local/bin/virtualenvwrapper.sh
-
-# Make use of nice bd command
-# see https://github.com/vigneshwaranr/bd
-alias bd=". bd -si"
+source /usr/bin/virtualenvwrapper.sh
 
 # Speed up compilation time of C/C++ source code
 export HOMEBREW_MAKE_JOBS=4
