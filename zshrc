@@ -15,7 +15,7 @@ export DISABLE_AUTO_TITLE='true'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="avit"
+ZSH_THEME="refined"
 
 # Hide machine name in theme (for agnoster theme)
 DEFAULT_USER="$(whoami)"
@@ -48,6 +48,7 @@ export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/junit.jar
 if [[ $platform == 'Linux' ]]; then
     # Exports
     export PATH=/usr/local/bin:$HOME/bin:$PATH
+    export VIRTUALENVWRAPPER_LOCATION=/usr/bin
 
     # Aliases
     # Modify keyboard backlight
@@ -57,6 +58,7 @@ if [[ $platform == 'Linux' ]]; then
 elif [[ $platform == 'Darwin' ]]; then
     # Exports
     export PATH=/usr/local/bin:$PATH:User/andreashhp/miniconda2/bin:/usr/local/mysql/bin:/Library/TeX/texbin/
+    export VIRTUALENVWRAPPER_LOCATION=/usr/local/bin
 
     # heroku autocomplete setup
     HEROKU_AC_ZSH_SETUP_PATH=/Users/andreashhp/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
@@ -66,7 +68,7 @@ fi
 # needed for virtualenvwrapper
 export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=$(which python3)
-source /usr/bin/virtualenvwrapper.sh
+source $VIRTUALENVWRAPPER_LOCATION/virtualenvwrapper.sh
 
 # Speed up compilation time of C/C++ source code
 export HOMEBREW_MAKE_JOBS=4
