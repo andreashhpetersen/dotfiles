@@ -127,8 +127,8 @@ set hid
 filetype plugin on
 filetype indent on
 
-" Change <Leader> to ,
-let mapleader = ","
+" Change <Leader> to ...
+" let mapleader = ''
 
 " Split more naturally
 set splitbelow
@@ -366,6 +366,8 @@ nmap <silent> ¬ <Plug>(ale_previous_wrap)
 
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
+
+let g:ycm_global_ycm_extra_conf="$HOME/.vim/.ycm_extra_conf.py"
 
 
 """"""""""""""""""""""""""""""""""""""""

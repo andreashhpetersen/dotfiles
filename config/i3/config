@@ -15,7 +15,7 @@ for_window [class="^.*"] border pixel 0
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -172,6 +172,7 @@ bindsym XF86KbdBrightnessDown exec kb-light.py - 25
 ####### exec_always ######
 ##########################
 
+exec_always --no-startup-id xcompmgr -c
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always feh --bg-scale /home/andreashhp/Pictures/wallpaper.jpg
 exec_always --no-startup-id setxkbmap -option caps:escape

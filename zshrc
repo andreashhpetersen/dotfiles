@@ -43,6 +43,8 @@ alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_inst
 alias tn="tmux attach || tmux new"
 alias try="tmux resize-pane -y"
 alias trx="tmux resize-pane -x"
+alias fsi="fsharpi"
+alias fsc="fsharpc"
 
 export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/junit.jar
 if [[ $platform == 'Linux' ]]; then
