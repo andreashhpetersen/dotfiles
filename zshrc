@@ -40,11 +40,24 @@ export LANG=en_US.UTF-8
 #
 
 alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
-alias tn="tmux attach || tmux new"
+
+# Config updates
+alias vz="vim ~/.zshrc"
+alias sz="source ~/.zshrc"
+
+# Tmux
+alias tn="tmux new -s"
+alias ta="tmux at -t"
 alias try="tmux resize-pane -y"
 alias trx="tmux resize-pane -x"
+
+# F# stuff
 alias fsi="fsharpi"
 alias fsc="fsharpc"
+
+# Networking
+alias connup="nmcli connection up"
+alias hotspot="nmcli connection up iPhone\ \(2\)"
 
 export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/junit.jar
 if [[ $platform == 'Linux' ]]; then

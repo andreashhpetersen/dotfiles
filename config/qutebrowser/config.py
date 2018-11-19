@@ -132,6 +132,9 @@ c.colors.statusbar.normal.fg = '#111'
 c.colors.statusbar.command.bg = '#555'
 c.colors.statusbar.command.fg = '#EEE'
 
+c.colors.statusbar.private.bg = '#FF69B4'
+c.colors.statusbar.command.private.bg = '#FF69B4'
+
 c.colors.statusbar.progress.bg = '#4A1'
 
 c.colors.statusbar.url.fg = '#000'
@@ -155,9 +158,11 @@ c.statusbar.widgets = ['url', 'scroll', 'progress']
 # Type: QtFont
 c.fonts.tabs = '7pt Noto Sans'
 
-c.tabs.title.format = '{audio} {title}'
+c.tabs.title.format = '{title}'
 
 c.tabs.title.alignment = 'center'
+
+c.tabs.indicator.width = 0
 
 c.tabs.padding = {
     "top": 5,

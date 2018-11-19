@@ -104,7 +104,7 @@ autocmd FileType help setlocal relativenumber
 set cursorline
 
 " Make y, d an p work with clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " Make backspace work properly
 set backspace=indent,eol,start
@@ -128,7 +128,7 @@ filetype plugin on
 filetype indent on
 
 " Change <Leader> to ...
-" let mapleader = ''
+let mapleader = ','
 
 " Split more naturally
 set splitbelow
@@ -326,6 +326,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:SuperTabDefaultCompletionType = "<C-n>"
 let g:SuperTabClosePreviewOnPopupClose = 1
 
+" Cycle through buffers with " and |
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+
 
 """"""""""""""""""""""""""""""""""""""""
 " => Plugin: Tagbar
@@ -349,12 +353,16 @@ nmap <silent> <C--> <Plug>(pydocstring)
 " => Plugin: vim-fsharp
 """"""""""""""""""""""""""""""""""""""""
 
+nmap <Leader>i :FsiRead
 let g:fsharp_fsi_show_auto_open=1
+let g:syntastic_fsharp_checkers=['']
 
 
 """"""""""""""""""""""""""""""""""""""""
 " Plugin: ALE
 """"""""""""""""""""""""""""""""""""""""
+
+let g:ale_lint_on_text_changed='normal'
 
 " Move to next and previous error with Alt-d/a
 nmap <silent> ˙ <Plug>(ale_next_wrap)
