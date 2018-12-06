@@ -47,6 +47,7 @@ alias sz="source ~/.zshrc"
 
 # Tmux
 alias tn="tmux new -s"
+alias tnn="tmux new"
 alias ta="tmux at -t"
 alias try="tmux resize-pane -y"
 alias trx="tmux resize-pane -x"

@@ -134,6 +134,9 @@ let mapleader = ','
 set splitbelow
 set splitright
 
+" Save with sudo
+cmap w!! w !sudo tee > /dev/null %
+
 
 """"""""""""""""""""""""""""""""""""""""
 " Style and look

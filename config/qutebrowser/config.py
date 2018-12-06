@@ -17,7 +17,7 @@ c.qt.highdpi = False
 config.set('content.host_blocking.whitelist', ['eb.dk'])
 
 # Use QtWebKit (like in Safari)
-c.backend = 'webkit'
+c.backend = 'webengine'
 
 # Enable JavaScript.
 # Type: Bool
