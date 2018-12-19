@@ -24,6 +24,14 @@ ignore =
     D203,
     # E202: White space before }
     E202,
+    # E221: Multiple spaces before operator
+    E221,
+    # E222: Multiple spaces after operator
+    E222,
+    # E241: Multiple spaces after ,
+    E241,
+    # E266: To many leading '#' for block comment
+    E266,
     # E501: line too long
     E501,
     # F812: list comprehension redefines ...
