@@ -81,6 +81,10 @@ Plugin 'tweekmonster/django-plus.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
+" Folding
+Plugin 'konfekt/fastfold'
+Plugin 'tmhedberg/simpylfold'
+
 call vundle#end()            
 filetype plugin indent on    
 
@@ -104,7 +108,7 @@ autocmd FileType help setlocal relativenumber
 set cursorline
 
 " Make y, d an p work with clipboard
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 " Make backspace work properly
 set backspace=indent,eol,start
