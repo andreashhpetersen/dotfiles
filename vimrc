@@ -105,9 +105,6 @@ else
 endif
 
 call plug#end()
-" Folding
-Plugin 'konfekt/fastfold'
-Plugin 'tmhedberg/simpylfold'
 
 
 """"""""""""""""""""""""""""""""""""""""
