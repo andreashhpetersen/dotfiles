@@ -1,88 +1,110 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vundle
+" => vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible              
-filetype off                  
-
-set rtp+=~/.vim/bundle/Vundle.vim 
-call vundle#begin() 
-
-" Vundle must be installed and handle it self
-Plugin 'VundleVim/Vundle.vim' 
-
+call plug#begin('~/.vim/plugged')
 " YouCompleteMe. You truly do.
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
+
+" Snippets
+Plug 'SirVer/ultisnips'
 
 " Nice, light-weight statusline
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Pale Night colorscheme
-Plugin 'drewtempelmeyer/palenight.vim'
+Plug 'drewtempelmeyer/palenight.vim'
 
 " Simple commentary plugin
-Plugin 'https://github.com/tpope/vim-commentary'
+Plug 'https://github.com/tpope/vim-commentary'
 
 " Awesome docstring plugin
-Plugin 'heavenshell/vim-pydocstring'
+Plug 'heavenshell/vim-pydocstring'
 
 " Vertical indent lines. Visual stuff, looks good
-Plugin 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 
 " Nerdtree. Filebrowser inside vim. Pretty cool
-Plugin 'https://github.com/scrooloose/nerdtree'
-
-" Tagbar, to be explored!
-Plugin 'https://github.com/majutsushi/tagbar'
+Plug 'https://github.com/scrooloose/nerdtree'
 
 " ALE is the new Syntastic, yo!
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 
 " PEP8 support
-Plugin 'nvie/vim-flake8'
+Plug 'nvie/vim-flake8'
 
 " F# support in pretty neat way
-Plugin 'fsharp/vim-fsharp'
+Plug 'fsharp/vim-fsharp'
 
 " Surround stuff
-Plugin 'https://github.com/tpope/vim-surround'
+Plug 'https://github.com/tpope/vim-surround'
 
 " Navigation is everything
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Is it a bird? Is it a plane? No, it's Supertab!
-Plugin 'https://github.com/ervandew/supertab'
+Plug 'https://github.com/ervandew/supertab'
 
 " Latex - freakin' hate it
-Plugin 'lervag/vimtex'
+Plug 'lervag/vimtex'
 
 " Window swapping like crazy
-Plugin 'wesQ3/vim-windowswap'
+" Plug 'wesQ3/vim-windowswap'
 
 " All the colorschemes of the world
-Plugin 'flazz/vim-colorschemes'
+" Plug 'flazz/vim-colorschemes'
 
 " Detect virtualenvs
-Plugin 'jmcantrell/vim-virtualenv'
+Plug 'jmcantrell/vim-virtualenv'
 
 " Add support for tmux line (or something)
-Plugin 'edkolev/tmuxline.vim'
+Plug 'edkolev/tmuxline.vim'
 
 " Add git support
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Distraction free mode
-Plugin 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 
 " Can Django BE any better??
-Plugin 'tweekmonster/django-plus.vim'
+Plug 'tweekmonster/django-plus.vim'
 
 " Markdown support
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
-call vundle#end()            
-filetype plugin indent on    
+" Folding
+Plug 'konfekt/fastfold'
+Plug 'tmhedberg/simpylfold'
+
+Plug 'sheerun/vim-polyglot'
+
+" iPython integration
+Plug 'jpalardy/vim-slime', { 'for': 'python' }
+Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+
+" Fuzzy search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+" ReasonML support
+Plug 'reasonml-editor/vim-reason-plus'
+
+Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
+
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+    " the path to python3 is obtained through executing `:echo exepath('python3')` in vim
+    let g:python3_host_prog = "/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6"
+endif
+
+call plug#end()
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -104,7 +126,7 @@ autocmd FileType help setlocal relativenumber
 set cursorline
 
 " Make y, d an p work with clipboard
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 " Make backspace work properly
 set backspace=indent,eol,start
@@ -323,18 +345,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 
 """"""""""""""""""""""""""""""""""""""""
-" => Plugin: Supertab
-""""""""""""""""""""""""""""""""""""""""
-
-let g:SuperTabDefaultCompletionType = "<C-n>"
-let g:SuperTabClosePreviewOnPopupClose = 1
-
-" Cycle through buffers with " and |
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""
 " => Plugin: Tagbar
 """"""""""""""""""""""""""""""""""""""""
 
@@ -375,10 +385,24 @@ nmap <silent> ¬ <Plug>(ale_previous_wrap)
 " Plugin: YouCompleteMe
 """"""""""""""""""""""""""""""""""""""""
 
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 
-let g:ycm_global_ycm_extra_conf="$HOME/.vim/.ycm_extra_conf.py"
+" let g:ycm_global_ycm_extra_conf="$HOME/.vim/.ycm_extra_conf.py"
+
+
+""""""""""""""""""""""""""""""""""""""""
+" => Plugin: Supertab
+""""""""""""""""""""""""""""""""""""""""
+
+let g:SuperTabDefaultCompletionType = "<C-n>"
+let g:SuperTabClosePreviewOnPopupClose = 1
+
+" Cycle through buffers with " and |
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -427,4 +451,59 @@ endfunction
 
 command! ProseMode call ProseMode()
 nmap \p :ProseMode<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""
+" Plugin: reason-plus
+""""""""""""""""""""""""""""""""""""""""
+
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['/usr/local/bin/reason-language-server']
+    \ }
+
+" enable autocomplete
+let g:deoplete#enable_at_startup = 1
+
+
+""""""""""""""""""""""""""""""""""""""""
+" Plugin: vim-polyglot
+""""""""""""""""""""""""""""""""""""""""
+
+let g:polyglot_disabled = ['latex']
+
+
+""""""""""""""""""""""""""""""""""""""""
+" Plugin: vimtex
+""""""""""""""""""""""""""""""""""""""""
+
+let g:tex_flavor='latex'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
+
+""""""""""""""""""""""""""""""""""""""""
+" Plugin: UltiSnips
+""""""""""""""""""""""""""""""""""""""""
+
+let g:UltiSnipsEditSplit = 'context'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+
+""""""""""""""""""""""""""""""""""""""""
+" Plugin: vim-slime
+""""""""""""""""""""""""""""""""""""""""
+
+let g:slime_target = 'tmux'
+
+" fix past issues in ipython
+let g:slime_python_ipython = 1
+
+" always send text to the top-right pane in the current tmux tab without asking
+let g:slime_default_config = {
+            \ 'socket_name': get(split($TMUX, ','), 0),
+            \ 'target_pane': '{top-right}' }
+let g:slime_dont_ask_default = 1
 

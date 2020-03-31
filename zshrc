@@ -40,6 +40,8 @@ export LANG=en_US.UTF-8
 #
 
 alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+alias py="python3"
+alias pip="pip3"
 
 # Config updates
 alias vz="vim ~/.zshrc"
@@ -60,7 +62,7 @@ alias fsc="fsharpc"
 alias connup="nmcli connection up"
 alias hotspot="nmcli connection up iPhone\ \(2\)"
 
-export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/junit.jar
+export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/javabdd-1.0b2.jar
 if [[ $platform == 'Linux' ]]; then
     # Exports
     export PATH=/usr/local/bin:$HOME/bin:$PATH
@@ -73,8 +75,11 @@ if [[ $platform == 'Linux' ]]; then
     alias kbd="sudo keyboard_backlight.sh down"
 elif [[ $platform == 'Darwin' ]]; then
     # Exports
-    export PATH=/usr/local/bin:$PATH:User/andreashhp/miniconda2/bin:/usr/local/mysql/bin:/Library/TeX/texbin/
+    export PATH=/usr/local/bin:/usr/local/mysql/bin:/Library/TeX/texbin/:$PATH
     export VIRTUALENVWRAPPER_LOCATION=/usr/local/bin
+
+    # Aliases
+    alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc"
 
     # heroku autocomplete setup
     HEROKU_AC_ZSH_SETUP_PATH=/Users/andreashhp/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
@@ -89,3 +94,4 @@ source $VIRTUALENVWRAPPER_LOCATION/virtualenvwrapper.sh
 # Speed up compilation time of C/C++ source code
 export HOMEBREW_MAKE_JOBS=4
 
+export HOMEBREW_GITHUB_API_TOKEN=dc9b036a08b475795b1fb21274e699c7a7be1b1e
