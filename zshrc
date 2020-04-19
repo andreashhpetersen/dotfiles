@@ -94,5 +94,3 @@ source $VIRTUALENVWRAPPER_LOCATION/virtualenvwrapper.sh
 
 # Speed up compilation time of C/C++ source code
 export HOMEBREW_MAKE_JOBS=4
-
-export HOMEBREW_GITHUB_API_TOKEN=dc9b036a08b475795b1fb21274e699c7a7be1b1e
