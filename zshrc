@@ -40,10 +40,9 @@ export LANG=en_US.UTF-8
 # For a full list of active aliases, run `alias`.
 #
 
-# alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 alias ipython="ipython3"
-alias py3="python3"
 alias pip="pip3"
+alias py="python3"
 
 # Config updates
 alias vz="vim ~/.zshrc"
@@ -64,7 +63,7 @@ alias fsc="fsharpc"
 alias connup="nmcli connection up"
 alias hotspot="nmcli connection up iPhone\ \(2\)"
 
-export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/junit.jar
+export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/javabdd-1.0b2.jar
 if [[ $platform == 'Linux' ]]; then
     # Exports
     export PATH=/usr/local/bin:$HOME/bin:$PATH
@@ -79,6 +78,9 @@ elif [[ $platform == 'Darwin' ]]; then
     # Exports
     export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:/usr/local/bin:$PATH:User/andreashhp/miniconda2/bin:/usr/local/mysql/bin:/Library/TeX/texbin/
     export VIRTUALENVWRAPPER_LOCATION=/usr/local/bin
+
+    # Aliases
+    alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc"
 
     # heroku autocomplete setup
     HEROKU_AC_ZSH_SETUP_PATH=/Users/andreashhp/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
