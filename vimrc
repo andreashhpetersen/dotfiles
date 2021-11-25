@@ -2,6 +2,10 @@
 " => vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
+
+" Is it a bird? Is it a plane? No, it's Supertab!
+Plug 'https://github.com/ervandew/supertab'
+
 " YouCompleteMe. You truly do.
 Plug 'Valloric/YouCompleteMe'
 
@@ -42,9 +46,6 @@ Plug 'https://github.com/tpope/vim-surround'
 " Navigation is everything
 Plug 'christoomey/vim-tmux-navigator'
 
-" Is it a bird? Is it a plane? No, it's Supertab!
-Plug 'https://github.com/ervandew/supertab'
-
 " Latex - freakin' hate it
 Plug 'lervag/vimtex'
 
@@ -72,6 +73,9 @@ Plug 'tweekmonster/django-plus.vim'
 " Markdown support
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }  }
 
 " Folding
 Plug 'konfekt/fastfold'
@@ -85,6 +89,9 @@ Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 
 " Fuzzy search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+" Lets have some scala, shall we?
+Plug 'derekwyatt/vim-scala'
 
 " ReasonML support
 Plug 'reasonml-editor/vim-reason-plus'
@@ -101,7 +108,7 @@ else
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
     " the path to python3 is obtained through executing `:echo exepath('python3')` in vim
-    let g:python3_host_prog = "/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6"
+    let g:python3_host_prog = "/usr/bin/python3"
 endif
 
 call plug#end()
@@ -385,13 +392,15 @@ nmap <silent> ¬ <Plug>(ale_previous_wrap)
 " Plugin: YouCompleteMe
 """"""""""""""""""""""""""""""""""""""""
 
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_seed_identifiers_with_syntax = 0
 
 " let g:ycm_global_ycm_extra_conf="$HOME/.vim/.ycm_extra_conf.py"
 
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 """"""""""""""""""""""""""""""""""""""""
 " => Plugin: Supertab
@@ -408,6 +417,8 @@ nnoremap <S-Tab> :bprevious<CR>
 """"""""""""""""""""""""""""""""""""""""
 " Plugin: airline
 """"""""""""""""""""""""""""""""""""""""
+
+let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -469,7 +480,7 @@ let g:deoplete#enable_at_startup = 1
 " Plugin: vim-polyglot
 """"""""""""""""""""""""""""""""""""""""
 
-let g:polyglot_disabled = ['latex']
+" let g:polyglot_disabled = ['latex']
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -478,6 +489,9 @@ let g:polyglot_disabled = ['latex']
 
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode=0
+
+let g:vimtex_view_method = 'zathura'
+
 set conceallevel=1
 let g:tex_conceal='abdmg'
 
@@ -507,3 +521,8 @@ let g:slime_default_config = {
             \ 'target_pane': '{top-right}' }
 let g:slime_dont_ask_default = 1
 
+""""""""""""""""""""""""""""""""""""""""
+" Plugin: vim-slime
+""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <C-p> :FZF<Cr>

@@ -12,6 +12,9 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=1
 # For tmuxp
 export DISABLE_AUTO_TITLE='true'
 
+# Increase available heap to better handle symsim (sbt) 
+export SBT_OPTS="-Xmx3G -XX:+UseG1GC -Xss2M"
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -24,7 +27,7 @@ DEFAULT_USER="$(whoami)"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode colored-man-pages pip tmux sudo django z)
+plugins=(git vi-mode colored-man-pages pip tmux sudo z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -40,9 +43,10 @@ export LANG=en_US.UTF-8
 # For a full list of active aliases, run `alias`.
 #
 
-alias ipython="ipython3"
-alias pip="pip3"
+# alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+alias python="python3"
 alias py="python3"
+# alias pip="pip3"
 
 # Config updates
 alias vz="vim ~/.zshrc"
@@ -63,11 +67,13 @@ alias fsc="fsharpc"
 alias connup="nmcli connection up"
 alias hotspot="nmcli connection up iPhone\ \(2\)"
 
+# FZF
+export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{*/node_modules/*,.git/*,*/__pycache__/*,*/build/*}"'
+
 export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/javabdd-1.0b2.jar
 if [[ $platform == 'Linux' ]]; then
     # Exports
     export PATH=/usr/local/bin:$HOME/bin:$PATH
-    export VIRTUALENVWRAPPER_LOCATION=/usr/bin
 
     # Aliases
     # Modify keyboard backlight
@@ -76,8 +82,7 @@ if [[ $platform == 'Linux' ]]; then
     alias kbd="sudo keyboard_backlight.sh down"
 elif [[ $platform == 'Darwin' ]]; then
     # Exports
-    export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:/usr/local/bin:$PATH:User/andreashhp/miniconda2/bin:/usr/local/mysql/bin:/Library/TeX/texbin/
-    export VIRTUALENVWRAPPER_LOCATION=/usr/local/bin
+    export PATH=/usr/local/bin:/usr/local/mysql/bin:/Library/TeX/texbin/:$PATH
 
     # Aliases
     alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc"
@@ -90,11 +95,34 @@ fi
 # needed for virtualenvwrapper
 export WORKON_HOME=~/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=$(which python3)
-source $VIRTUALENVWRAPPER_LOCATION/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper.sh
 
 # Speed up compilation time of C/C++ source code
 export HOMEBREW_MAKE_JOBS=4
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# heroku autocomplete setup
-HEROKU_AC_ZSH_SETUP_PATH=/Users/andreaspetersen/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/andreashhp/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/andreashhp/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/andreashhp/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/andreashhp/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
