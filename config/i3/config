@@ -180,4 +180,3 @@ bindsym XF86KbdBrightnessDown exec kb-light.py - 25
 exec_always --no-startup-id xcompmgr -c
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always feh --bg-scale /home/andreashhp/Pictures/wallpaper.jpg
-exec_always --no-startup-id setxkbmap -layout us -variant mac -option caps:escape
