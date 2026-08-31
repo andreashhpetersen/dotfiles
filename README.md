@@ -53,3 +53,23 @@ In vim, run `:LspInstallServer` once in a file of each language you use
 (needs `python3-pip` / `npm`), and `:Copilot setup`.
 
 Other tooling as needed: `nvm`, `sdkman`, `ghcup`.
+
+## vim: LSP keybindings
+
+Completion (asyncomplete) pops up while typing: `<C-n>` / `<C-p>` to move,
+`<C-y>` to confirm. `<Tab>` is left to Copilot for accepting ghost text.
+Snippets (UltiSnips) expand/jump on `<C-j>` / `<C-k>`.
+
+In a buffer with a running language server:
+
+| key | action |
+|-----|--------|
+| `<C-]>` | go to definition |
+| `<C-w><C-]>` | definition in a split |
+| `<leader>k` | hover docs |
+| `<leader>rn` | rename symbol |
+| `<leader>rf` | find references |
+
+`<leader>` is `,`. Diagnostics come from ALE, not vim-lsp — jump between
+them with `]a` / `[a`. Servers are managed with `:LspInstallServer` /
+`:LspManageServers`.
