@@ -163,8 +163,8 @@ colorscheme palenight
 set ignorecase
 set smartcase
 set incsearch
-set hlsearch
-nnoremap <silent> <leader><space> :nohlsearch<CR>
+set nohlsearch
+nnoremap <silent> <leader><space> :ohlsearch<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""
