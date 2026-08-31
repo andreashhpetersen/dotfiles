@@ -3,8 +3,6 @@
 # Not symlinked by makesymlinks.sh. Link it yourself:
 #   mkdir -p ~/.config && ln -s ~/dotfiles/config/alacritty ~/.config/alacritty
 #
-# Needs the "Source Code Pro" font (apt: fonts-source-code-pro). Check with
-#   fc-list | grep -i "source code"
 # Alacritty sets TERM=alacritty; if some remote box lacks that terminfo,
 # either install ncurses-term there or uncomment the [env] block below.
 
@@ -12,16 +10,17 @@
 # TERM = "xterm-256color"
 
 [window]
-opacity = 0.8
+opacity = 0.9
 padding = { x = 4, y = 4 }
 dynamic_padding = true
+decorations = "none"
 
 [font]
 size = 12.0
-normal      = { family = "Source Code Pro", style = "Semibold" }
-bold        = { family = "Source Code Pro", style = "Bold" }
-italic      = { family = "Source Code Pro", style = "Italic" }
-bold_italic = { family = "Source Code Pro", style = "Bold Italic" }
+normal      = { family = "FiraCode Nerd Font", style = "Light" }
+bold        = { family = "FiraCode Nerd Font", style = "Bold" }
+italic      = { family = "FiraCode Nerd Font", style = "Italic" }
+bold_italic = { family = "FiraCode Nerd Font", style = "Bold Italic" }
 
 [scrolling]
 history = 10000
