@@ -226,10 +226,16 @@ set showtabline=2
 
 " Colorscheme
 set t_Co=256
+" Truecolor when the terminal advertises it (Alacritty, kitty); stays off on urxvt
+if has('termguicolors') && $COLORTERM =~# '^\(truecolor\|24bit\)$'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
 colorscheme palenight
 
 " Turn background off
-hi Normal ctermfg=252 ctermbg=NONE
+hi Normal ctermfg=252 ctermbg=NONE guibg=NONE
 
 
 """"""""""""""""""""""""""""""""""""""""
