@@ -5,7 +5,6 @@ call plug#begin('~/.vim/plugged')
 
 " Completion / snippets / LSP
 Plug 'SirVer/ultisnips'
-Plug 'github/copilot.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -265,9 +264,10 @@ augroup END
 " Plugin: asyncomplete
 """"""""""""""""""""""""""""""""""""""""
 
-" Popup appears while typing; <C-n>/<C-p> to pick, <C-y> to confirm.
-" <Tab> is left to Copilot for accepting ghost-text suggestions.
+" Popup appears while typing. Tab / S-Tab cycle it, <C-y> confirms, <C-e> cancels.
 let g:asyncomplete_auto_popup = 1
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 
 """"""""""""""""""""""""""""""""""""""""

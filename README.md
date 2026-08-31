@@ -50,15 +50,15 @@ niri has no bar/launcher/notifier of its own; install e.g. `waybar`,
 `fuzzel`, `mako` separately.
 
 In vim, run `:LspInstallServer` once in a file of each language you use
-(needs `python3-pip` / `npm`), and `:Copilot setup`.
+(needs `python3-pip` / `npm`).
 
 Other tooling as needed: `nvm`, `sdkman`, `ghcup`.
 
 ## vim: LSP keybindings
 
-Completion (asyncomplete) pops up while typing: `<C-n>` / `<C-p>` to move,
-`<C-y>` to confirm. `<Tab>` is left to Copilot for accepting ghost text.
-Snippets (UltiSnips) expand/jump on `<C-j>` / `<C-k>`.
+Completion (asyncomplete) pops up while typing: `<Tab>` / `<S-Tab>` to move,
+`<C-y>` to confirm, `<C-e>` to cancel. Snippets (UltiSnips) expand/jump on
+`<C-j>` / `<C-k>`.
 
 In a buffer with a running language server:
 
