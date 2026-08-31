@@ -146,8 +146,20 @@ autocmd FileType help setlocal relativenumber
 " Highlight current line
 set cursorline
 
-" Make y, d an p work with clipboard
+" Make y, d and p work with the system clipboard.
+" Needs Vim with +clipboard (X11) or +wayland (Wayland - install vim-gtk3).
 set clipboard=unnamedplus
+
+" Fallback for a Vim without a working clipboard provider (e.g. minimal vim
+" on Wayland/niri): pipe yanks straight to wl-copy or xclip.
+if !has('clipboard') && (executable('wl-copy') || executable('xclip'))
+    let s:clipcmd = executable('wl-copy') ? 'wl-copy' : 'xclip -selection clipboard'
+    augroup SysClipYank
+        autocmd!
+        autocmd TextYankPost * if v:event.operator ==# 'y'
+            \ | call system(s:clipcmd, join(v:event.regcontents, "\n")) | endif
+    augroup END
+endif
 
 " Make backspace work properly
 set backspace=indent,eol,start
