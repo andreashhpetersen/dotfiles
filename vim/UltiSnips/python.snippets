@@ -1,0 +1,25 @@
+
+snippet parg "Add parser argument"
+parser.add_argument(
+	'--$1', '-$2', type=$3, default=$4,
+	help='$5'
+)$0
+endsnippet
+
+snippet argpar "Make parse_args function" b
+def parse_args():
+	parser = argparse.ArgumentParser()
+	parser.add_argument(
+		'--$1', '-$2', type=$3, default=$4,
+		help='$5'
+	)$0
+	return parser.parse_args()
+endsnippet
+
+snippet try "Try\except"
+try:
+	${1:${VISUAL:}}
+except $2:
+	$3
+$0
+endsnippet
