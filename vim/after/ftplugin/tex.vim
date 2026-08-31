@@ -1,4 +1,5 @@
 
 set ft=tex
 set textwidth=80
-let g:tex_conceal = ""
+" let g:tex_conceal = ""
+" set conceallevel=0

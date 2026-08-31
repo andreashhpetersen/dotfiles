@@ -46,8 +46,12 @@ Plug 'https://github.com/tpope/vim-surround'
 " Navigation is everything
 Plug 'christoomey/vim-tmux-navigator'
 
-" Latex - freakin' hate it
+" Latex
 Plug 'lervag/vimtex'
+
+" Notes and wiki
+Plug 'lervag/wiki.vim'
+Plug 'lervag/wiki-ft.vim'
 
 " Window swapping like crazy
 " Plug 'wesQ3/vim-windowswap'
@@ -75,7 +79,10 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }  }
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }  }
+
+" Stay at my cursor
+Plug 'zhimsel/vim-stay'
 
 " Folding
 Plug 'konfekt/fastfold'
@@ -89,27 +96,34 @@ Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 
 " Fuzzy search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Lets have some scala, shall we?
 Plug 'derekwyatt/vim-scala'
 
+" Copilot
+Plug 'github/copilot.vim'
+
+" Windsurf (copilot alternative)
+" Plug 'Exafunction/windsurf.vim'
+
 " ReasonML support
-Plug 'reasonml-editor/vim-reason-plus'
+" Plug 'reasonml-editor/vim-reason-plus'
 
-Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': 'bash install.sh',
-            \ }
+" Plug 'autozimu/LanguageClient-neovim', {
+"             \ 'branch': 'next',
+"             \ 'do': 'bash install.sh',
+"             \ }
 
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
-else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-    " the path to python3 is obtained through executing `:echo exepath('python3')` in vim
-    let g:python3_host_prog = "/usr/bin/python3"
-endif
+" if has('nvim')
+"     Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
+" else
+"     " Plug 'Shougo/deoplete.nvim'
+"     Plug 'roxma/nvim-yarp'
+"     Plug 'roxma/vim-hug-neovim-rpc'
+"     " the path to python3 is obtained through executing `:echo exepath('python3')` in vim
+"     let g:python3_host_prog = "/usr/bin/python3"
+" endif
 
 call plug#end()
 
@@ -133,7 +147,7 @@ autocmd FileType help setlocal relativenumber
 set cursorline
 
 " Make y, d an p work with clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " Make backspace work properly
 set backspace=indent,eol,start
@@ -165,6 +179,15 @@ set splitright
 
 " Save with sudo
 cmap w!! w !sudo tee > /dev/null %
+
+
+""""""""""""""""""""""""""""""""""""""""
+" Something to do with snippets (tex.snippets)
+""""""""""""""""""""""""""""""""""""""""
+
+setlocal spell
+set spelllang=en_us
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -225,22 +248,23 @@ set incsearch
 """"""""""""""""""""""""""""""""""""""""
 " Key mappings
 """"""""""""""""""""""""""""""""""""""""
+" Open vimrc for edit
+nnoremap <silent><leader>v :e ~/.vimrc<CR>
 
-" Alt + jk (‹∆) to move lines in file
-nnoremap ∆ :m .+1<CR>==
-nnoremap ˚ :m .-2<CR>==
+" Source vim config, no plugin install
+nnoremap <silent><leader>s :source ~/.vimrc<CR>
 
-inoremap ∆ <Esc>:m .+1<CR>==gi
-inoremap ˚ <Esc>:m .-2<CR>==gi
-
-vnoremap ∆ :m '>+1<CR>gv=gv
-vnoremap ˚ :m '<-2<CR>gv=gv
+" Source vim configuration file and install plugins
+nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
 
 " Working with buffers
 nnoremap gl :ls<CR>
 nnoremap gn :bn<CR>
 nnoremap gp :bp<CR>
-nnoremap gd :bd<CR>
+nnoremap gd :bp\|bd #<CR>
+
+nnoremap <leader>( maci(<Enter><Esc>O<Esc>p:.s/, /,\r/g<Esc>'a=i(
+nnoremap <leader>[ maci[<Enter><Esc>O<Esc>p:.s/, /,\r/g<Esc>'a=i[
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -249,6 +273,7 @@ nnoremap gd :bd<CR>
 
 " Turn on the WiLd menu
 set wildmenu
+set wildmode=longest:full,full
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -383,6 +408,8 @@ let g:syntastic_fsharp_checkers=['']
 """"""""""""""""""""""""""""""""""""""""
 
 let g:ale_lint_on_text_changed='normal'
+let g:ale_tex_chktex_options='-I -n1 -n3 -n8 -n25 -n36'
+let g:ale_tex_lacheck_quiet_messages = { 'regex': '\Vpossible unwanted space at' }
 
 " Move to next and previous error with Alt-d/a
 nmap <silent> ˙ <Plug>(ale_next_wrap)
@@ -396,18 +423,25 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_seed_identifiers_with_syntax = 0
 
+" Get definition and documentation respectively
+nnoremap <C-]> :YcmCompleter GoTo<CR>
+nnoremap <C-m> :YcmCompleter GetDoc<CR>
+
+nnoremap <C-w><C-]> :split<CR>:YcmCompleter GoTo<CR>
+nnoremap <C-w>]     :split<CR>:YcmCompleter GoTo<CR>
+
 " let g:ycm_global_ycm_extra_conf="$HOME/.vim/.ycm_extra_conf.py"
 
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
 """"""""""""""""""""""""""""""""""""""""
 " => Plugin: Supertab
 """"""""""""""""""""""""""""""""""""""""
 
-let g:SuperTabDefaultCompletionType = "<C-n>"
-let g:SuperTabClosePreviewOnPopupClose = 1
+" let g:SuperTabDefaultCompletionType = "<C-n>"
+" let g:SuperTabClosePreviewOnPopupClose = 1
 
 " Cycle through buffers with " and |
 nnoremap <Tab> :bnext<CR>
@@ -468,12 +502,17 @@ nmap \p :ProseMode<CR>
 " Plugin: reason-plus
 """"""""""""""""""""""""""""""""""""""""
 
-let g:LanguageClient_serverCommands = {
-    \ 'reason': ['/usr/local/bin/reason-language-server']
-    \ }
+" let g:LanguageClient_serverCommands = {
+"     \ 'reason': ['/usr/local/bin/reason-language-server']
+"     \ }
 
 " enable autocomplete
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 0
+" call deoplete#custom#option("auto_complete_delay", 150)
+" call deoplete#custom#option("min_pattern_length", 5)
+" let g:deoplete#auto_complete_start_length = 4
+" let g:deoplete#auto_complete_delay=150 " or something higher than 100
+
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -484,16 +523,33 @@ let g:deoplete#enable_at_startup = 1
 
 
 """"""""""""""""""""""""""""""""""""""""
+" Plugin: wiki.vim
+""""""""""""""""""""""""""""""""""""""""
+
+let g:wiki_root = '~/wiki'
+let g:wiki_zotero_root = '~/Zotero/'
+" let g:wiki_export['view'] = v:true
+
+""""""""""""""""""""""""""""""""""""""""
 " Plugin: vimtex
 """"""""""""""""""""""""""""""""""""""""
 
 let g:tex_flavor='latex'
 let g:vimtex_quickfix_mode=0
-
 let g:vimtex_view_method = 'zathura'
-
-set conceallevel=1
-let g:tex_conceal='abdmg'
+let g:vimtex_syntax_conceal_disable = 1
+" let g:vimtex_compiler_latexmk = {'build_dir': 'build'}
+let g:vimtex_compiler_latexmk = {
+    \ 'build_dir': 'build',
+    \ 'options' : [
+    \   '-pdf',
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -501,9 +557,9 @@ let g:tex_conceal='abdmg'
 """"""""""""""""""""""""""""""""""""""""
 
 let g:UltiSnipsEditSplit = 'context'
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger = '<C-j>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -522,7 +578,9 @@ let g:slime_default_config = {
 let g:slime_dont_ask_default = 1
 
 """"""""""""""""""""""""""""""""""""""""
-" Plugin: vim-slime
+" Plugin: junegunn/fzf
 """"""""""""""""""""""""""""""""""""""""
 
-nnoremap <C-p> :FZF<Cr>
+nnoremap <C-p> :Files<Cr>
+nnoremap <silent><Leader>b :Buffers<CR>
+nnoremap <silent><Leader>g :Commits<CR>
