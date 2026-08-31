@@ -1,0 +1,80 @@
+# Alacritty config (TOML - the old alacritty.yml format is dead as of 0.14).
+#
+# Not symlinked by makesymlinks.sh. Link it yourself:
+#   mkdir -p ~/.config && ln -s ~/dotfiles/config/alacritty ~/.config/alacritty
+#
+# Needs the "Source Code Pro" font (apt: fonts-source-code-pro). Check with
+#   fc-list | grep -i "source code"
+# Alacritty sets TERM=alacritty; if some remote box lacks that terminfo,
+# either install ncurses-term there or uncomment the [env] block below.
+
+# [env]
+# TERM = "xterm-256color"
+
+[window]
+opacity = 0.8
+padding = { x = 4, y = 4 }
+dynamic_padding = true
+
+[font]
+size = 12.0
+normal      = { family = "Source Code Pro", style = "Semibold" }
+bold        = { family = "Source Code Pro", style = "Bold" }
+italic      = { family = "Source Code Pro", style = "Italic" }
+bold_italic = { family = "Source Code Pro", style = "Bold Italic" }
+
+[scrolling]
+history = 10000
+
+[selection]
+semantic_escape_chars = ":@-./_~?&=%+#"
+save_to_clipboard = false
+
+[cursor]
+style = { shape = "Underline", blinking = "On" }
+blink_interval = 500
+blink_timeout = 15
+
+[colors.primary]
+background = "#000000"
+foreground = "#dddddd"
+
+[colors.cursor]
+cursor = "#ffffff"
+text = "#000000"
+
+[colors.selection]
+background = "#fffacd"
+text = "#000000"
+
+[colors.normal]
+black   = "#000000"
+red     = "#cc0403"
+green   = "#19cb00"
+yellow  = "#cecb00"
+blue    = "#0d73cc"
+magenta = "#cb1ed1"
+cyan    = "#0dcdcd"
+white   = "#dddddd"
+
+[colors.bright]
+black   = "#4d4d4d"
+red     = "#f2201f"
+green   = "#23fd00"
+yellow  = "#fffd00"
+blue    = "#1a8fff"
+magenta = "#fd28ff"
+cyan    = "#14ffff"
+white   = "#ffffff"
+
+[mouse]
+hide_when_typing = true
+
+# Defaults keep Ctrl+Shift+C/V for copy/paste and Ctrl+Shift+Space for vi
+# mode (vim-like scrollback selection). These add the Ctrl+Alt bindings you
+# used in kitty - drop them if niri ends up grabbing Ctrl+Alt.
+[keyboard]
+bindings = [
+  { key = "C", mods = "Control|Alt", action = "Copy" },
+  { key = "V", mods = "Control|Alt", action = "Paste" },
+]
