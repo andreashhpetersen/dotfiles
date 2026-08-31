@@ -4,8 +4,10 @@ echo "\nHigh five!!\n"
 
 platform=$(uname)
 export ZSH=~/.oh-my-zsh
-export TERM="xterm-256color"
 export VISUAL="vim"
+# Let the terminal (and tmux) set TERM - forcing it here breaks tmux-256color
+# and truecolor detection inside tmux. Fall back only if it's somehow unset.
+[ -z "$TERM" ] && export TERM="xterm-256color"
 
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
