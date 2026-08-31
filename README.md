@@ -3,10 +3,14 @@
 Personal dotfiles. Used on two machines:
 
 - an X11 / i3 box (`config/i3`, `config/polybar`, `Xresources`, `urxvt`)
-- a Wayland / niri box (niri configured directly on that machine, not tracked here)
+- a Wayland / niri box (niri itself configured on that machine, not tracked;
+  terminal is `config/alacritty`)
 
 The shared configs (`zshrc`, `bashrc`, `vimrc`, `tmux.conf`) detect the
 session type at runtime, so the same files work under both.
+
+Nothing under `config/` is symlinked by `makesymlinks.sh` - link those by
+hand, e.g. `ln -s ~/dotfiles/config/alacritty ~/.config/alacritty`.
 
 ## Install
 
