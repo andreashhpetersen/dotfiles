@@ -51,8 +51,12 @@ alias pip="pip3"
 alias vz="vim ~/.zshrc"
 alias sz="source ~/.zshrc"
 
-# Use bat instead of cat
-alias cat="batcat"
+# Use bat instead of cat (binary is `batcat` on Debian/Ubuntu, `bat` elsewhere)
+if command -v batcat >/dev/null; then
+    alias cat="batcat"
+elif command -v bat >/dev/null; then
+    alias cat="bat"
+fi
 
 # Tmux
 alias tn="tmux new -s"
@@ -97,10 +101,19 @@ elif [[ $platform == 'Darwin' ]]; then
 
 fi
 
-# needed for virtualenvwrapper
+# virtualenvwrapper - source it from wherever it landed (pip --user, apt,
+# /usr/local, homebrew) and stay quiet if it isn't installed
 export WORKON_HOME=~/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=$(which python3)
-source /usr/local/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_PYTHON=$(command -v python3)
+for _vew in \
+    "$HOME/.local/bin/virtualenvwrapper.sh" \
+    /usr/local/bin/virtualenvwrapper.sh \
+    /usr/share/virtualenvwrapper/virtualenvwrapper.sh \
+    /opt/homebrew/bin/virtualenvwrapper.sh
+do
+    [ -f "$_vew" ] && source "$_vew" && break
+done
+unset _vew
 
 # Speed up compilation time of C/C++ source code
 export HOMEBREW_MAKE_JOBS=4
@@ -118,20 +131,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 alias tv='tidy-viewer'
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/andreashhp/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/andreashhp/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/andreashhp/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/andreashhp/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-
-[ -f "/home/andreashhp/.ghcup/env" ] && . "/home/andreashhp/.ghcup/env" # ghcup-env
+# ghcup (Haskell)
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env"
