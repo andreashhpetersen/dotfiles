@@ -18,7 +18,7 @@ export SBT_OPTS="-Xmx3G -XX:+UseG1GC -Xss2M"
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="refined"
+ZSH_THEME="af-magic"
 
 # Hide machine name in theme (for agnoster theme)
 DEFAULT_USER="$(whoami)"
@@ -41,16 +41,18 @@ export LANG=en_US.UTF-8
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
 
 # alias ipython="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 alias python="python3"
 alias py="python3"
-# alias pip="pip3"
+alias pip="pip3"
 
 # Config updates
 alias vz="vim ~/.zshrc"
 alias sz="source ~/.zshrc"
+
+# Use bat instead of cat
+alias cat="batcat"
 
 # Tmux
 alias tn="tmux new -s"
@@ -67,13 +69,16 @@ alias fsc="fsharpc"
 alias connup="nmcli connection up"
 alias hotspot="nmcli connection up iPhone\ \(2\)"
 
+# UPPAAL
+export UPPAAL_PATH=~/uppaal-4.1.20-stratego-10-linux64
+
 # FZF
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{*/node_modules/*,.git/*,*/__pycache__/*,*/build/*}"'
 
 export CLASSPATH=$CLASSPATH:~/algs4/algs4.jar:~/java/junit.jar:~/java/javabdd-1.0b2.jar
 if [[ $platform == 'Linux' ]]; then
     # Exports
-    export PATH=/usr/local/bin:$HOME/bin:$PATH
+    export PATH="$HOME/.local/bin:/usr/local/bin:$HOME/bin:/opt/julia-1.9.3/bin:$PATH"
 
     # Aliases
     # Modify keyboard backlight
@@ -102,21 +107,6 @@ export HOMEBREW_MAKE_JOBS=4
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/andreashhp/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/andreashhp/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/andreashhp/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/andreashhp/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 export NVM_DIR="$HOME/.nvm"
@@ -126,3 +116,22 @@ export NVM_DIR="$HOME/.nvm"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+alias tv='tidy-viewer'
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/andreashhp/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/andreashhp/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/andreashhp/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/andreashhp/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+[ -f "/home/andreashhp/.ghcup/env" ] && . "/home/andreashhp/.ghcup/env" # ghcup-env
