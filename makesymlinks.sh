@@ -1,68 +1,45 @@
 #!/bin/bash
-########################
-# .make.sh
-# This script creates symlinks from the home directory to any desired
-# dotfiles in ~/dotfiles
-# Borrowed from michaeljsmally: https://github.com/michaeljsmalley/dotfiles/blob/master/makesymlinks.sh
-########################
+#
+# Symlink the tracked dotfiles into $HOME and bootstrap the vim/tmux plugin
+# managers. Assumes the repo is at ~/dotfiles and that zsh + oh-my-zsh are
+# already installed.
 
-######### Variables
+set -e
 
 dir=~/dotfiles
 olddir=~/dotfiles_old
-files="bashrc vimrc vim zshrc oh-my-zsh tmux.conf"
+files="bashrc vimrc vim zshrc tmux.conf"
 
-##########
+mkdir -p "$olddir"
 
-# create dotfiles_old in homedir
-echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
-mkdir -p $olddir
-echo "... done"
-
-# change to the dotfiles directory
-echo -n "Changing to the $dir directory"
-cd $dir
-echo "... done"
-
-# move any existing dotfiles in homedir to dotfiles_old directory,
-# then create symlinks from the homedir to any files in the ~/dotfiles
-for file in $files; do
-    echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/.$file $olddir
-    echo "Creating symlink to $file in home directory"
-    ln -s $dir/$file ~/.$file
+for f in $files; do
+    # back up a real file/dir, but never an existing symlink (idempotent re-runs)
+    if [ -e "$HOME/.$f" ] && [ ! -L "$HOME/.$f" ]; then
+        echo "backup  ~/.$f -> $olddir/"
+        mv "$HOME/.$f" "$olddir/"
+    fi
+    ln -sfn "$dir/$f" "$HOME/.$f"
+    echo "link    ~/.$f"
 done
 
-install_zsh () {
-# Test to see if zshell is installed. If it is:
-if [ -f /bin/zsh -o -f /usr/bin/zsh ]; then
-    # Clone my oh-my-zsh repository from GitHub only if it isn't already present
-    if [[ ! -d $dir/oh-my-zsh/ ]]; then
-        sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    fi
-    # Set the default shell to zsh if it isn't currently set to zsh
-    if [[ ! $(echo $SHELL) == $(which zsh) ]]; then
-        chsh -s $(which zsh)
-    fi
-else
-    # If zsh isn't already installed, get the platform of the current machine
-    platform=$(uname);
-    # If the platform is Linux, try an apt-get to install zsh and then recurse
-    if [[ $platform == 'Linux' ]]; then
-        if [[ -f /etc/redhat-release ]]; then
-            sudo yum install zsh
-            install_zsh
-        fi
-        if [[ -f /etc/debian_version ]]; then
-            sudo apt-get install zsh
-            install_zsh
-        fi
-    # If the platform is OS X, tell the user to install zsh :)
-    elif [[ $platform == 'Darwin' ]]; then
-        echo "Please install zsh, then re-run this script!"
-        exit
-    fi
+# vim-plug (vim/autoload is gitignored)
+if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
+    echo "install vim-plug"
+    curl -fsSLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
-}
 
-install_zsh
+# tpm (tmux plugin manager)
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "install tpm"
+    git clone -q https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
+cat <<'EOF'
+
+Done. Remaining manual steps:
+  vim +PlugInstall +qall
+  ~/.vim/plugged/YouCompleteMe/install.py --all   # if you use YCM
+  tmux, then <prefix> + I                         # install tmux plugins
+  chsh -s "$(command -v zsh)"                      # if zsh isn't your shell yet
+EOF

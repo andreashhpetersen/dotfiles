@@ -10,14 +10,17 @@ session type at runtime, so the same files work under both.
 
 ## Install
 
+Prerequisite: `zsh` + `oh-my-zsh` already installed.
+
 ```sh
 git clone <this repo> ~/dotfiles
 cd ~/dotfiles
-git submodule update --init --recursive
 ./makesymlinks.sh
 ```
 
-Then in vim run `:PlugInstall`, and in tmux press `prefix + I` to install plugins.
+`makesymlinks.sh` symlinks the shared configs, bootstraps vim-plug and tpm,
+and prints the remaining manual steps (`:PlugInstall`, `prefix + I`, YCM
+build, `chsh`).
 
 ## Packages to install on a fresh machine
 
