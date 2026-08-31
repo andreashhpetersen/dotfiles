@@ -67,10 +67,6 @@ alias ta="tmux at -t"
 alias try="tmux resize-pane -y"
 alias trx="tmux resize-pane -x"
 
-# F# stuff
-alias fsi="fsharpi"
-alias fsc="fsharpc"
-
 # Networking
 alias connup="nmcli connection up"
 alias hotspot="nmcli connection up iPhone\ \(2\)"

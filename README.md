@@ -19,8 +19,8 @@ cd ~/dotfiles
 ```
 
 `makesymlinks.sh` symlinks the shared configs, bootstraps vim-plug and tpm,
-and prints the remaining manual steps (`:PlugInstall`, `prefix + I`, YCM
-build, `chsh`).
+and prints the remaining manual steps (`:PlugInstall`, `prefix + I`,
+`:LspInstallServer`, `chsh`).
 
 ## Packages to install on a fresh machine
 
@@ -28,14 +28,14 @@ Common:
 
 ```sh
 sudo apt install zsh tmux vim-gtk3 ripgrep fzf bat virtualenvwrapper \
-    zathura build-essential cmake python3-dev curl
+    zathura python3-pip nodejs npm curl git
 ```
 
 - `vim-gtk3` - vim with `+clipboard` / `+wayland` (plain `vim` has neither)
 - `ripgrep` - backs `FZF_DEFAULT_COMMAND`
 - `bat` - aliased to `cat` (binary is `batcat` on Ubuntu)
 - `virtualenvwrapper` - preferred env manager (no conda)
-- `build-essential cmake python3-dev` - for YouCompleteMe's `install.py`
+- `python3-pip nodejs npm` - vim-lsp-settings uses these to install language servers
 
 Wayland / niri box also needs:
 
@@ -49,5 +49,7 @@ sudo apt install wl-clipboard xwayland-satellite
 niri has no bar/launcher/notifier of its own; install e.g. `waybar`,
 `fuzzel`, `mako` separately.
 
-Other tooling: `oh-my-zsh` (installed by `makesymlinks.sh`), `nvm`, `sdkman`,
-`ghcup`, Copilot (`:Copilot setup`, needs node).
+In vim, run `:LspInstallServer` once in a file of each language you use
+(needs `python3-pip` / `npm`), and `:Copilot setup`.
+
+Other tooling as needed: `nvm`, `sdkman`, `ghcup`.

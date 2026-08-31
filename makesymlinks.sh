@@ -39,7 +39,7 @@ cat <<'EOF'
 
 Done. Remaining manual steps:
   vim +PlugInstall +qall
-  ~/.vim/plugged/YouCompleteMe/install.py --all   # if you use YCM
-  tmux, then <prefix> + I                         # install tmux plugins
+  vim: :LspInstallServer in a file of each language you use
+  tmux, then <prefix> + I                          # install tmux plugins
   chsh -s "$(command -v zsh)"                      # if zsh isn't your shell yet
 EOF

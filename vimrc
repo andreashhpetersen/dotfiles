@@ -3,10 +3,13 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 
-" Completion / snippets
-Plug 'Valloric/YouCompleteMe'
+" Completion / snippets / LSP
 Plug 'SirVer/ultisnips'
 Plug 'github/copilot.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " UI
 Plug 'vim-airline/vim-airline'
@@ -23,6 +26,7 @@ Plug 'heavenshell/vim-pydocstring'
 
 " Navigation
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-vinegar'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -45,15 +49,12 @@ Plug 'lervag/vimtex'
 Plug 'lervag/wiki.vim'
 Plug 'lervag/wiki-ft.vim'
 Plug 'jmcantrell/vim-virtualenv'
-Plug 'fsharp/vim-fsharp'
 Plug 'derekwyatt/vim-scala'
 Plug 'tweekmonster/django-plus.vim'
 
 " Markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " Python REPL / cells
 Plug 'jpalardy/vim-slime', { 'for': 'python' }
@@ -189,7 +190,7 @@ augroup vimrc
     " Line numbers on help pages
     autocmd FileType help setlocal number relativenumber
     " Spell-check for prose filetypes
-    autocmd FileType tex,markdown,pandoc,gitcommit setlocal spell
+    autocmd FileType tex,markdown,gitcommit setlocal spell
     " Close vim if NERDTree is the only window left
     autocmd BufEnter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | quit | endif
 augroup END
@@ -228,6 +229,7 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 " Plugin: ALE
 """"""""""""""""""""""""""""""""""""""""
 
+let g:ale_disable_lsp = 1  " vim-lsp is the LSP client; ALE only lints / fixes
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_tex_chktex_options = '-I -n1 -n3 -n8 -n25 -n36'
 let g:ale_tex_lacheck_quiet_messages = { 'regex': '\Vpossible unwanted space at' }
@@ -238,17 +240,34 @@ nmap <silent> [a <Plug>(ale_previous_wrap)
 
 
 """"""""""""""""""""""""""""""""""""""""
-" Plugin: YouCompleteMe
+" Plugin: vim-lsp  (servers installed with :LspInstallServer, via vim-lsp-settings)
 """"""""""""""""""""""""""""""""""""""""
 
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_seed_identifiers_with_syntax = 0
+let g:lsp_diagnostics_enabled = 0          " ALE owns diagnostics
+let g:lsp_document_highlight_enabled = 0
 
-nnoremap <C-]>      :YcmCompleter GoTo<CR>
-nnoremap <leader>k  :YcmCompleter GetDoc<CR>
-nnoremap <C-w><C-]> :split<CR>:YcmCompleter GoTo<CR>
-nnoremap <C-w>]     :split<CR>:YcmCompleter GoTo<CR>
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    nmap     <buffer> <C-]>       <plug>(lsp-definition)
+    nmap     <buffer> <leader>k   <plug>(lsp-hover)
+    nmap     <buffer> <leader>rn  <plug>(lsp-rename)
+    nmap     <buffer> <leader>rf  <plug>(lsp-references)
+    nnoremap <buffer> <C-w><C-]>  :split <bar> LspDefinition<CR>
+endfunction
+
+augroup lsp_buffer
+    autocmd!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""
+" Plugin: asyncomplete
+""""""""""""""""""""""""""""""""""""""""
+
+" Popup appears while typing; <C-n>/<C-p> to pick, <C-y> to confirm.
+" <Tab> is left to Copilot for accepting ghost-text suggestions.
+let g:asyncomplete_auto_popup = 1
 
 
 """"""""""""""""""""""""""""""""""""""""
