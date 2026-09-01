@@ -74,16 +74,16 @@ set number
 set cursorline
 set backspace=indent,eol,start
 
-" System clipboard. Needs Vim with +clipboard (X11) or +wayland (install
-" vim-gtk3). The fallback pipes yanks to wl-copy / xclip for a Vim built
-" with neither (e.g. minimal vim on Wayland/niri).
+" System clipboard. Needs a Vim with +clipboard (install vim-gtk3 on
+" Debian/Ubuntu). The autocmd is a yank-only fallback for a stripped Vim
+" that still has wl-copy/xclip around (e.g. a server).
 set clipboard=unnamedplus
 if !has('clipboard') && (executable('wl-copy') || executable('xclip'))
     let s:clipcmd = executable('wl-copy') ? 'wl-copy' : 'xclip -selection clipboard'
     augroup SysClipYank
         autocmd!
         autocmd TextYankPost * if v:event.operator ==# 'y'
-            \ | call system(s:clipcmd, join(v:event.regcontents, "\n")) | endif
+                    \ | call system(s:clipcmd, join(v:event.regcontents, "\n")) | endif
     augroup END
 endif
 
