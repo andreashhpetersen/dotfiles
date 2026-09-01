@@ -29,7 +29,7 @@ DEFAULT_USER="$(whoami)"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode colored-man-pages pip tmux sudo z)
+plugins=(git vi-mode colored-man-pages pip tmux sudo z extract command-not-found fzf-tab zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -131,3 +131,4 @@ alias tv='tidy-viewer'
 
 # ghcup (Haskell)
 [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env"
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
