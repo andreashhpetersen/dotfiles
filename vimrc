@@ -343,6 +343,16 @@ let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 
 """"""""""""""""""""""""""""""""""""""""
+" Plugin: pydocstring
+""""""""""""""""""""""""""""""""""""""""
+
+" Don't let its Python ftplugin steal <C-l> from vim-tmux-navigator.
+" (Docstring generation needs `doq` installed anyway: pip install doq)
+let g:pydocstring_enable_mapping = 0
+nnoremap <silent><leader>d :Pydocstring<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""
 " Plugin: vim-slime
 """"""""""""""""""""""""""""""""""""""""
 
